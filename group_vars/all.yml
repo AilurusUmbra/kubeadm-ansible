@@ -44,5 +44,9 @@ additional_features:
 # temporary directory used by additional features
 tmp_dir: /tmp/kubeadm-ansible-files
 
-# Container runtimes ('containerd', 'crio')
-container_runtime: containerd
+# Container runtimes ('docker', 'dockershim', 'containerd', 'crio')
+# There should exist the corresponding unix socket.   
+# /var/run/docker.sock
+# /var/run/containerd/containerd.sock 
+# /var/run/crio/crio.sock 
+container_runtime: docker

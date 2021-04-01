@@ -4,8 +4,14 @@
   gather_facts: no
   become: yes
   tasks:
-    - name: Reset Kubernetes component
+    - name: Reset Kubernetes component with docker
+      shell: "kubeadm reset --force --cri-socket=/var/run/{{ container_runtime }}.sock"
+      when: container_runtime == "docker"
+      ignore_errors: True
+
+    - name: Reset Kubernetes component with other cri
       shell: "kubeadm reset --force --cri-socket=/var/run/{{ container_runtime }}/{{ container_runtime }}.sock"
+      when: container_runtime == "containerd" or container_runtime == "crio"
       ignore_errors: True
 
     - name: Delete flannel.1 interface
